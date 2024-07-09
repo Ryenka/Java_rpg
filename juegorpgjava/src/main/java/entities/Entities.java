@@ -1,9 +1,9 @@
 package entities;
-
+import Interfaz.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public abstract class Entities {
+public abstract class Entities implements Actualizacion,Dibujo{
     protected String nombre;
     protected int nivel;
     protected int salud;
