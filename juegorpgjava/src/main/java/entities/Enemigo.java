@@ -1,27 +1,18 @@
 package entities;
 
-public class Enemigo {
-    private String tipo;
-    private int nivel;
-    private int salud;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public class Enemigo extends Entities{
     private int x, y;
 
 
     public Enemigo(String tipo, int nivel, int x, int y) {
-        this.tipo = tipo;
-        this.nivel = nivel;
-        this.salud = 100;
+        super(tipo, nivel, 100, new Sprite());
         this.x = x;
         this.y = y;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
 
     public int getNivel() {
         return nivel;
@@ -53,6 +44,17 @@ public class Enemigo {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public void update(float delta) {
+        // Lógica de actualización del enemigo
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+        // Lógica para dibujar el enemigo
+        batch.draw(sprite, x, y);
     }
     public void recibirDanio(int danio) {
         this.salud -= danio;
