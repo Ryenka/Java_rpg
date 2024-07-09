@@ -1,5 +1,5 @@
 package juegoRpg;
-import Keyss.KeyHandler;
+import Keys.KeyHandler;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,7 +22,7 @@ public class MenuPantalla extends ScreenAdapter {
         this.batch = game.batch;
         this.font = new BitmapFont();
         this.jugador = new Jugador("Steve", "assets/Textura/jugadorSprite/player.png"); //implementar que el jugador decida su nomnbre
-        this.enemigo = new Enemigo("EnemigoGenérico", 1, 200, 200);
+        this.enemigo = new Enemigo("EnemigoGenérico", 1, 200, 200, "assets/Textura/enemigoSprite/slime.png");
         this.keyHandler = new KeyHandler(jugador);
 
         Gdx.input.setInputProcessor(keyHandler);
