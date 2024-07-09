@@ -1,20 +1,15 @@
 package entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 
-public class Jugador {
-    private String nombre;
-    private int nivel;
+public class Jugador extends Entities{
+
     private int experiencia;
-    private int salud;
-    private Sprite sprite;
     private Animation<TextureRegion> walkUpAnimation, walkDownAnimation, walkLeftAnimation, walkRightAnimation;
     private TextureRegion idleFrame;
     private float stateTime;
@@ -31,10 +26,8 @@ public class Jugador {
     }
 
     public Jugador(String nombre, String spritePath) {
-        this.nombre = nombre;
-        this.nivel = 1;
-        this.experiencia = 0;
-        this.salud = 100;
+        super(nombre, 1, 100, new Sprite(new Texture(spritePath)));
+        this.experiencia=0;
         Texture texture = new Texture(spritePath);
         int TILE_SIZE = texture.getHeight() / 8; // Ajusta según el tamaño de tu sprite sheet
         TextureRegion[][] tmp = TextureRegion.split(texture, TILE_SIZE, TILE_SIZE);
