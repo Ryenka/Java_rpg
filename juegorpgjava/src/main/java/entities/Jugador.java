@@ -19,7 +19,6 @@ public class Jugador extends Entities{
     private static final float MOVE_TIME = 0.1f; // Tiempo para moverse cada cuadro
     private static final float FRAME_DURATION = 0.1f; // Duración de cada frame
     private Direction moveDirection;
-    private Direction lastDirection;
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT, NONE
