@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="40" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="31">
+ <editorsettings>
+  <export target="rpgMapa.tmx" format="tmx"/>
+ </editorsettings>
  <tileset firstgid="1" source="dungeon_floor.tsx"/>
  <tileset firstgid="16" source="column_round.tsx"/>
  <tileset firstgid="18" source="column_round_wall.tsx"/>
@@ -76,7 +79,7 @@
  <layer id="3" name="columna" width="40" height="30">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,
+72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,
 72,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79,
@@ -107,4 +110,20 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,79
 </data>
  </layer>
+ <objectgroup id="5" name="Colisiones">
+  <object id="14" x="1.5" y="18" width="1276" height="44.5"/>
+  <object id="15" x="1272" y="61" width="8" height="897.5"/>
+  <object id="16" x="1217" y="690" width="54.5" height="45.5"/>
+  <object id="18" x="8.75" y="691" width="1142.75" height="43.75"/>
+  <object id="20" x="-0.25" y="63.75" width="7.75" height="896.75"/>
+  <object id="21" x="8" y="851.75" width="439.5" height="42.25"/>
+  <object id="22" x="448.5" y="851.25" width="30.5" height="43.25"/>
+  <object id="24" x="479.75" y="851" width="792.25" height="43.5"/>
+  <object id="25" x="161" y="467" width="1111" height="43.5"/>
+  <object id="26" x="7.5" y="466.25" width="87.25" height="43.5"/>
+  <object id="27" x="1119.75" y="306.75" width="151.75" height="44"/>
+  <object id="28" x="8.5" y="307.5" width="1047.25" height="42"/>
+  <object id="29" x="8" y="147" width="279.25" height="43.5"/>
+  <object id="30" x="351.75" y="146.25" width="920" height="45.25"/>
+ </objectgroup>
 </map>

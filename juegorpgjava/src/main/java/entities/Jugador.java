@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import Mapaa.Mapa;
 
 public class Jugador extends Entities{
 
@@ -17,33 +16,26 @@ public class Jugador extends Entities{
     private Vector2 position;
     private Vector2 targetPosition;
     private float moveTimer;
-    private static final float MOVE_TIME = 0.2f; // Time to move each frame
-    private static final float FRAME_DURATION = 0.1f; // Duration of each frame
+    private static final float MOVE_TIME = 0.1f; // Tiempo para moverse cada cuadro
+    private static final float FRAME_DURATION = 0.1f; // Duración de cada frame
     private Direction moveDirection;
     private Direction lastDirection;
-    private Texture texture;
-    private Mapa mapa;
-    private final int TILE_SIZE = 32; // Size of the tiles in the map
-
-    public int getExperiencia() {
-        return experiencia;
-    }
-
 
     public enum Direction {
         UP, DOWN, LEFT, RIGHT, NONE
     }
 
-    public Jugador(String nombre, String spritePath, Mapa mapa) {
+    public Jugador(String nombre, String spritePath) {
         super(nombre, 1, 100, new Sprite(new Texture(spritePath)));
-        this.experiencia = 0;
-        this.mapa = mapa;
+        this.experiencia=0;
+        Texture texture = new Texture(spritePath);
+        int TILE_SIZE = texture.getHeight() / 8; // Ajusta según el tamaño de tu sprite sheet
+        TextureRegion[][] tmp = TextureRegion.split(texture, TILE_SIZE, TILE_SIZE);
 
-        TextureRegion[][] tmp = TextureRegion.split(new Texture(spritePath), TILE_SIZE * 2, TILE_SIZE * 2); // Adjust for 64x64 sprites
-        walkUpAnimation = createAnimationFromRow(tmp, 5, 0, 5);
-        walkDownAnimation = createAnimationFromRow(tmp, 4, 0, 5);
-        walkLeftAnimation = createAnimationFromRow(tmp, 7, 0, 5);
-        walkRightAnimation = createAnimationFromRow(tmp, 6, 0, 5);
+        walkUpAnimation = createAnimationFromRow(tmp, 1, 0, 8);
+        walkDownAnimation = createAnimationFromRow(tmp, 0, 0, 8);
+        walkLeftAnimation = createAnimationFromRow(tmp, 2, 0, 8);
+        walkRightAnimation = createAnimationFromRow(tmp, 3, 0, 8);
 
         idleFrame = tmp[0][0];
         sprite = new Sprite(idleFrame);
@@ -56,6 +48,49 @@ public class Jugador extends Entities{
         lastDirection = Direction.DOWN;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(int experiencia) {
+        this.experiencia = experiencia;
+    }
+
+    public int getSalud() {
+        return salud;
+    }
+
+    public void setSalud(int salud) {
+        this.salud = salud;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public void setPosition(int x, int y) {
+        this.sprite.setPosition(x, y);
+    }
     public void move(Direction direction) {
         moveDirection = direction;
     }
@@ -77,13 +112,23 @@ public class Jugador extends Entities{
         if (moveDirection == Direction.NONE) {
             currentFrame = idleFrame;
         } else {
-            currentFrame = switch (moveDirection) {
-                case UP -> walkUpAnimation.getKeyFrame(stateTime, true);
-                case DOWN -> walkDownAnimation.getKeyFrame(stateTime, true);
-                case LEFT -> walkLeftAnimation.getKeyFrame(stateTime, true);
-                case RIGHT -> walkRightAnimation.getKeyFrame(stateTime, true);
-                default -> idleFrame;
-            };
+            switch (moveDirection) {
+                case UP:
+                    currentFrame = walkUpAnimation.getKeyFrame(stateTime, true);
+                    break;
+                case DOWN:
+                    currentFrame = walkDownAnimation.getKeyFrame(stateTime, true);
+                    break;
+                case LEFT:
+                    currentFrame = walkLeftAnimation.getKeyFrame(stateTime, true);
+                    break;
+                case RIGHT:
+                    currentFrame = walkRightAnimation.getKeyFrame(stateTime, true);
+                    break;
+                default:
+                    currentFrame = idleFrame;
+                    break;
+            }
         }
         sprite.setRegion(currentFrame);
         sprite.setPosition(position.x, position.y);
@@ -93,30 +138,47 @@ public class Jugador extends Entities{
         sprite.draw(batch);
     }
 
-    public void setPosition(int x, int y) {
-        this.sprite.setPosition(mapa.toWorldCoordinate(x), mapa.toWorldCoordinate(y));
-        this.position.set(mapa.toWorldCoordinate(x), mapa.toWorldCoordinate(y));
-        this.targetPosition.set(mapa.toWorldCoordinate(x), mapa.toWorldCoordinate(y));
-    }
-
-    private void moveOneTile() {
-        int tileSize = mapa.toWorldCoordinate(1);
-        switch (moveDirection) {
-            case UP -> targetPosition.y += tileSize;
-            case DOWN -> targetPosition.y -= tileSize;
-            case LEFT -> targetPosition.x -= tileSize;
-            case RIGHT -> targetPosition.x += tileSize;
-            default -> {}
+    public void ganarExperiencia(int puntos) {
+        this.experiencia += puntos;
+        if (this.experiencia >= 100) {
+            this.nivel++;
+            this.experiencia = 0;
         }
     }
-
+    public void recibirDanio(int danio) {
+        this.salud -= danio;
+        if (this.salud < 0) {
+            this.salud = 0;
+        }
+    }
+    public void curar(int puntos) {
+        this.salud += puntos;
+        if (this.salud > 100) {
+            this.salud = 100;
+        }
+    }
+    private void moveOneTile() {
+        int TILE_SIZE = sprite.getRegionWidth();
+        switch (moveDirection) {
+            case UP:
+                targetPosition.y += TILE_SIZE;
+                break;
+            case DOWN:
+                targetPosition.y -= TILE_SIZE;
+                break;
+            case LEFT:
+                targetPosition.x -= TILE_SIZE;
+                break;
+            case RIGHT:
+                targetPosition.x += TILE_SIZE;
+                break;
+            default:
+                break;
+        }
+    }
     private Animation<TextureRegion> createAnimationFromRow(TextureRegion[][] sheet, int row, int startX, int frameCount) {
         TextureRegion[] frames = new TextureRegion[frameCount];
         System.arraycopy(sheet[row], startX, frames, 0, frameCount);
         return new Animation<>(FRAME_DURATION, frames);
-    }
-
-    public void dispose() {
-        sprite.getTexture().dispose();
     }
 }
