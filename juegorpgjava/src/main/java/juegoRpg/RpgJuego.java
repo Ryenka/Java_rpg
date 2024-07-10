@@ -11,17 +11,14 @@ public class RpgJuego extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        this.setScreen(new MenuPantalla(this));
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600); // Configuración de la cámara
         mapa = new Mapa("assets/Textura/MapaRpg/rpgMapa.tmx", camera);
+        this.setScreen(new MenuPantalla(this));
     }
     @Override
     public void render() {
-        super.render();
-        batch.begin();
-        mapa.render(batch); // Renderizar el mapa
-        batch.end();
+        
     }
     @Override
     public void dispose() {
