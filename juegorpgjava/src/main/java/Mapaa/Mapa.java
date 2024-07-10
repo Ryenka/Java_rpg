@@ -10,6 +10,7 @@ public class Mapa {
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+    private static final int TILE_SIZE = 31;
 
     public Mapa(String mapaPath, OrthographicCamera camera) {
         try {
@@ -31,5 +32,19 @@ public class Mapa {
     public void dispose() {
         tiledMap.dispose();
         renderer.dispose();
+    }
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public TiledMap getTiledMap() {
+        return tiledMap;
+    }
+    public int toWorldCoordinate(int gridCoordinate) {
+        return gridCoordinate * TILE_SIZE;
+    }
+
+    public int toGridCoordinate(float worldCoordinate) {
+        return (int) (worldCoordinate / TILE_SIZE);
     }
 }
